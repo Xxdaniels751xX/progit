@@ -199,11 +199,11 @@ También debe ejecutar este comando para extraer los cambios del servidor de Sub
 
 Ejecutar `git svn rebase` de vez en cuando se asegura de que su código esté siempre actualizado. Sin embargo, debe asegurarse de que su directorio de trabajo esté limpio al ejecutarlo. Si tiene cambios locales, debe almacenar su trabajo o confirmarlo temporalmente antes de ejecutar `git svn rebase`; de lo contrario, el comando se detendrá si ve que el rebase resultará en un conflicto de combinación.
 
-### Git Branching Issues ###
+### Incidencias en las ramificaciones de Git ###
 
-When you’ve become comfortable with a Git workflow, you’ll likely create topic branches, do work on them, and then merge them in. If you’re pushing to a Subversion server via git svn, you may want to rebase your work onto a single branch each time instead of merging branches together. The reason to prefer rebasing is that Subversion has a linear history and doesn’t deal with merges like Git does, so git svn follows only the first parent when converting the snapshots into Subversion commits.
+Cuando te sientas cómodo con un flujo de trabajo de Git, es probable que crees ramas de temas, trabajes en ellas y luego las fusiones. Si estás empujando a un servidor de Subversion a través de git svn, tal vez quieras rebasar tu trabajo En una sola rama cada vez en lugar de fusionar ramas entre sí. La razón por la que prefiere rebases es que Subversion tiene una historia lineal y no se ocupa de fusiones como Git, por lo que git svn sigue solo al primer padre cuando convierte las instantáneas en commit de Subversion.
 
-Suppose your history looks like the following: you created an `experiment` branch, did two commits, and then merged them back into `master`. When you `dcommit`, you see output like this:
+
 
 	$ git svn dcommit
 	Committing to file:///tmp/test-svn/trunk ...
@@ -224,9 +224,9 @@ Suppose your history looks like the following: you created an `experiment` branc
 	No changes between current HEAD and refs/remotes/trunk
 	Resetting to the latest refs/remotes/trunk
 
-Running `dcommit` on a branch with merged history works fine, except that when you look at your Git project history, it hasn’t rewritten either of the commits you made on the `experiment` branch — instead, all those changes appear in the SVN version of the single merge commit.
+Ejecutar `dcommit` en una sucursal con un historial combinado funciona bien, excepto que cuando miras tu historial de proyectos de Git, no ha vuelto a escribir ninguno de los commit que has hecho en la rama` experimento`. SVN versión de la confirmación de combinación única.
 
-When someone else clones that work, all they see is the merge commit with all the work squashed into it; they don’t see the commit data about where it came from or when it was committed.
+Cuando alguien clones ese trabajo, todo lo que ven es la fusión comen con todo el trabajo aplastado en él; No ven los datos de confirmación de dónde vino o cuándo se cometió.
 
 ### Subversion Branching ###
 
