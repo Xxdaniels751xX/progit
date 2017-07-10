@@ -228,13 +228,13 @@ Ejecutar `dcommit` en una sucursal con un historial combinado funciona bien, exc
 
 Cuando alguien clones ese trabajo, todo lo que ven es la fusión comen con todo el trabajo aplastado en él; No ven los datos de confirmación de dónde vino o cuándo se cometió.
 
-### Subversion Branching ###
+### Ramificación de Subversion ###
 
-Branching in Subversion isn’t the same as branching in Git; if you can avoid using it much, that’s probably best. However, you can create and commit to branches in Subversion using git svn.
+Ramificar en Subversion no es lo mismo que ramificar en Git; Si puedes evitar usarlo mucho, probablemente sea mejor. Sin embargo, puede crear y comprometerse a las sucursales en Subversion mediante git svn.
 
-#### Creating a New SVN Branch ####
+#### Creando una nueva rama SVN ####
 
-To create a new branch in Subversion, you run `git svn branch [branchname]`:
+Para crear una nueva sucursal en Subversion, ejecuta `git svn branch [nombre de rama]`:
 
 	$ git svn branch opera
 	Copying file:///tmp/test-svn/trunk at r87 to file:///tmp/test-svn/branches/opera...
@@ -245,19 +245,19 @@ To create a new branch in Subversion, you run `git svn branch [branchname]`:
 	Successfully followed parent
 	r89 = 9b6fe0b90c5c9adf9165f700897518dbc54a7cbf (opera)
 
-This does the equivalent of the `svn copy trunk branches/opera` command in Subversion and operates on the Subversion server. It’s important to note that it doesn’t check you out into that branch; if you commit at this point, that commit will go to `trunk` on the server, not `opera`.
+Esto hace el equivalente al comando `svn copy trunk branches / opera` en Subversion y opera en el servidor de Subversion. Es importante tener en cuenta que no te echa un vistazo a esa rama; Si te comprometes en este punto, ese commit irá a `trunk` en el servidor, no` opera`.
 
-### Switching Active Branches ###
+### Cambio de ramas activas ###
 
-Git figures out what branch your dcommits go to by looking for the tip of any of your Subversion branches in your history — you should have only one, and it should be the last one with a `git-svn-id` in your current branch history. 
+Git calcula hacia fuera qué rama sus dcommits van a buscar la extremidad de cualesquiera de sus ramificaciones de Subversion en su historia - usted debe tener solamente uno, y debe ser el último con `git-svn-id` en su rama actual historia.
 
-If you want to work on more than one branch simultaneously, you can set up local branches to `dcommit` to specific Subversion branches by starting them at the imported Subversion commit for that branch. If you want an `opera` branch that you can work on separately, you can run
+Si desea trabajar en más de una rama simultáneamente, puede configurar ramas locales en `dcommit` a ramas específicas de Subversion iniciándolas en el commit Subversion importado para esa rama. Si desea una rama `opera` en la que pueda trabajar por separado, puede ejecutar
 
 	$ git branch opera remotes/opera
 
-Now, if you want to merge your `opera` branch into `trunk` (your `master` branch), you can do so with a normal `git merge`. But you need to provide a descriptive commit message (via `-m`), or the merge will say "Merge branch opera" instead of something useful.
+Ahora, si desea fusionar su rama `opera` en` trunk` (su rama `master`), puede hacerlo con una` git merge` normal. Pero necesitas proporcionar un mensaje de confirmación descriptivo (a través de `-m`), o la fusión dirá" Fusionar ópera de rama "en lugar de algo útil.
 
-Remember that although you’re using `git merge` to do this operation, and the merge likely will be much easier than it would be in Subversion (because Git will automatically detect the appropriate merge base for you), this isn’t a normal Git merge commit. You have to push this data back to a Subversion server that can’t handle a commit that tracks more than one parent; so, after you push it up, it will look like a single commit that squashed in all the work of another branch under a single commit. After you merge one branch into another, you can’t easily go back and continue working on that branch, as you normally can in Git. The `dcommit` command that you run erases any information that says what branch was merged in, so subsequent merge-base calculations will be wrong — the dcommit makes your `git merge` result look like you ran `git merge --squash`. Unfortunately, there’s no good way to avoid this situation — Subversion can’t store this information, so you’ll always be crippled by its limitations while you’re using it as your server. To avoid issues, you should delete the local branch (in this case, `opera`) after you merge it into trunk.
+Recuerde que aunque está usando `git merge` para hacer esta operación, y la fusión probablemente será mucho más fácil de lo que sería en Subversion (porque Git detectará automáticamente la base de combinación apropiada para usted), esto no es normal Git merge commit. Tienes que volver a enviar estos datos a un servidor de Subversion que no puede manejar un commit que rastree más de un padre; Así que, después de empujarlo hacia arriba, se verá como un solo commit que se aplastó en todo el trabajo de otra rama en un solo commit. Después de combinar una rama en otra, no puede volver fácilmente y seguir trabajando en esa rama, como normalmente lo hace en Git. El comando `dcommit` que ejecuta borra cualquier información que indique en qué rama se fusionó, de modo que los cálculos posteriores de la base de combinación se equivocan - el dcommit hace que su resultado` git merge` parezca ejecutado `git merge --squash`. Desafortunadamente, no hay una buena manera de evitar esta situación - Subversion no puede almacenar esta información, por lo que siempre estará lisiado por sus limitaciones mientras lo está utilizando como su servidor. Para evitar problemas, debe eliminar la rama local (en este caso, `opera`) después de fusionarla en el tronco.
 
 ### Subversion Commands ###
 
