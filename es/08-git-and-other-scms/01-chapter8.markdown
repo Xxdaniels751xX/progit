@@ -86,7 +86,7 @@ En este punto, debe tener un repositorio Git válido que haya importado sus rama
 	  tags/release-2.0.2rc1
 	  trunk
 
-It’s important to note how this tool namespaces your remote references differently. When you’re cloning a normal Git repository, you get all the branches on that remote server available locally as something like `origin/[branch]` - namespaced by the name of the remote. However, `git svn` assumes that you won’t have multiple remotes and saves all its references to points on the remote server with no namespacing. You can use the Git plumbing command `show-ref` to look at all your full reference names:
+Es importante tener en cuenta cómo esta herramienta de nombres de sus referencias remotas de manera diferente. Cuando está clonando un repositorio Git normal, obtiene todas las ramas de ese servidor remoto disponibles localmente como algo similar a `origen / [rama]` - con el nombre del control remoto. Sin embargo, `git svn` supone que no tendrá múltiples controles remotos y guarda todas sus referencias a puntos en el servidor remoto sin ningún espacio de nombres. Puede utilizar el comando git plumbing `show-ref` para ver todos los nombres de referencia completos:
 
 	$ git show-ref
 	1cbd4904d9982f386d87f88fce1c24ad7c0f0471 refs/heads/master
@@ -97,7 +97,7 @@ It’s important to note how this tool namespaces your remote references differe
 	1c4cb508144c513ff1214c3488abe66dcb92916f refs/remotes/tags/release-2.0.2rc1
 	1cbd4904d9982f386d87f88fce1c24ad7c0f0471 refs/remotes/trunk
 
-A normal Git repository looks more like this:
+Un repositorio normal de Git se parece más a esto:
 
 	$ git show-ref
 	83e38c7a0af325a9722f2fdc56b10188806d83a1 refs/heads/master
@@ -105,9 +105,9 @@ A normal Git repository looks more like this:
 	0a30dd3b0c795b80212ae723640d4e5d48cabdff refs/remotes/origin/master
 	25812380387fdd55f916652be4881c6f11600d6f refs/remotes/origin/testing
 
-You have two remote servers: one named `gitserver` with a `master` branch; and another named `origin` with two branches, `master` and `testing`. 
+Tiene dos servidores remotos: uno llamado `gitserver` con una rama` master`; Y otro llamado `origen` con dos ramas,` master` y `testing`.
 
-Notice how in the example of remote references imported from `git svn`, tags are added as remote branches, not as real Git tags. Your Subversion import looks like it has a remote named tags with branches under it.
+Observe cómo en el ejemplo de referencias remotas importadas de `git svn`, las etiquetas se agregan como ramas remotas, no como etiquetas Git reales. Su importación de Subversion parece que tiene un remoto llamado etiquetas con ramas bajo él.
 
 ### Committing Back to Subversion ###
 
