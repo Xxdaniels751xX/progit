@@ -26,18 +26,18 @@ Para seguir adelante, primero se debe crear un nuevo repositorio local de Subver
 	$ mkdir /tmp/test-svn
 	$ svnadmin create /tmp/test-svn
 
-Then, enable all users to change revprops — the easy way is to add a pre-revprop-change script that always exits 0:
+A continuación, habilite a todos los usuarios a cambiar revprops - la forma más sencilla es agregar un script de pre-revprop-change que siempre sale de 0:
 
 	$ cat /tmp/test-svn/hooks/pre-revprop-change 
 	#!/bin/sh
 	exit 0;
 	$ chmod +x /tmp/test-svn/hooks/pre-revprop-change
 
-You can now sync this project to your local machine by calling `svnsync init` with the to and from repositories.
+Ahora puede sincronizar este proyecto con su máquina local llamando `svnsync init` con los repositorios de y hacia.
 
 	$ svnsync init file:///tmp/test-svn http://progit-example.googlecode.com/svn/ 
 
-This sets up the properties to run the sync. You can then clone the code by running
+Esto configura las propiedades para ejecutar la sincronización. A continuación, puede clonar el código ejecutando
 
 	$ svnsync sync file:///tmp/test-svn
 	Committed revision 1.
@@ -47,11 +47,11 @@ This sets up the properties to run the sync. You can then clone the code by runn
 	Committed revision 3.
 	...
 
-Although this operation may take only a few minutes, if you try to copy the original repository to another remote repository instead of a local one, the process will take nearly an hour, even though there are fewer than 100 commits. Subversion has to clone one revision at a time and then push it back into another repository — it’s ridiculously inefficient, but it’s the only easy way to do this.
+Aunque esta operación puede tardar sólo unos minutos, si intenta copiar el repositorio original en otro repositorio remoto en lugar de uno local, el proceso tardará casi una hora, aunque hay menos de 100 confirmaciones. Subversion tiene que clonar una revisión a la vez y luego empujarla de nuevo a otro repositorio - es ridículamente ineficiente, pero es la única manera fácil de hacer esto.
 
-### Getting Started ###
+### Empezando ###
 
-Now that you have a Subversion repository to which you have write access, you can go through a typical workflow. You’ll start with the `git svn clone` command, which imports an entire Subversion repository into a local Git repository. Remember that if you’re importing from a real hosted Subversion repository, you should replace the `file:///tmp/test-svn` here with the URL of your Subversion repository:
+Ahora que tiene un repositorio de Subversion al que tiene acceso de escritura, puede pasar por un flujo de trabajo típico. Comenzarás con el comando `git svn clone`, que importa todo un repositorio de Subversion en un repositorio Git local. Recuerde que si está importando desde un repositorio real de Subversion alojado, debe reemplazar el `file: /// tmp / test-svn` aquí con la URL de su repositorio de Subversion:
 
 	$ git svn clone file:///tmp/test-svn -T trunk -b branches -t tags
 	Initialized empty Git repository in /Users/schacon/projects/testsvnsync/svn/.git/
@@ -69,13 +69,13 @@ Now that you have a Subversion repository to which you have write access, you ca
 	Checked out HEAD:
 	 file:///tmp/test-svn/branches/my-calc-branch r76
 
-This runs the equivalent of two commands — `git svn init` followed by `git svn fetch` — on the URL you provide. This can take a while. The test project has only about 75 commits and the codebase isn’t that big, so it takes just a few minutes. However, Git has to check out each version, one at a time, and commit it individually. For a project with hundreds or thousands of commits, this can literally take hours or even days to finish.
+Esto ejecuta el equivalente a dos comandos - `git svn init` seguido de` git svn fetch` - en la URL que usted proporciona. Esto puede tomar un tiempo. El proyecto de prueba tiene sólo unos 75 compromisos y la base de código no es tan grande, por lo que sólo toma unos minutos. Sin embargo, Git tiene que revisar cada versión, una a la vez, y confiar individualmente. Para un proyecto con cientos o miles de compromisos, esto puede tomar literalmente horas o incluso días para terminar.
 
-The `-T trunk -b branches -t tags` part tells Git that this Subversion repository follows the basic branching and tagging conventions. If you name your trunk, branches, or tags differently, you can change these options. Because this is so common, you can replace this entire part with `-s`, which means standard layout and implies all those options. The following command is equivalent:
+La parte `-T trunk -b branches -t tags` le dice a Git que este repositorio de Subversion sigue las convenciones básicas de ramificación y etiquetado. Si nombra el tronco, las ramas o las etiquetas de forma diferente, puede cambiar estas opciones. Debido a que esto es tan común, puede reemplazar esta parte entera con `-s`, lo que significa un diseño estándar e implica todas esas opciones. El siguiente comando es equivalente:
 
 	$ git svn clone file:///tmp/test-svn -s
 
-At this point, you should have a valid Git repository that has imported your branches and tags:
+En este punto, debe tener un repositorio Git válido que haya importado sus ramas y etiquetas:
 
 	$ git branch -a
 	* master
