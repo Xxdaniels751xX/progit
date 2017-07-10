@@ -18,11 +18,10 @@ Es importante fijarse en que cuando usas `git svn` estás interactuando con Subv
 
 No reescribas tu historia y trates de publicar de nuevo, y no publiques a un repositorio Git paralelo para colaborar con colegas que usen Git al mismo tiempo. Subversion sólo puede tener una historia lineal simple, de lo contrario puedes confundirlo fácilmente. Si trabajas con un equipo, y algunos usan SVN mientras otros usan Git, asegúrate de que todos usan el servidor de SVN para colaborar. Si lo haces así, tu vida será más simple.
 
-### Setting Up ###
+### Configuración ###
+Para demostrar esta funcionalidad, se necesita un repositorio SVN típico al que tengamos acceso de escritura. Si se desea copiar estos ejemplos, tendrás que crear una copia grabable de mi repositorio de pruebas. Con el fin de hacerlo con facilidad, puede utilizar una herramienta llamada `svnsync` que viene con versiones más recientes de Subversion - que debe ser distribuido con al menos la versión 1,4. Para estas pruebas, creé un nuevo repositorio de Subversion en el código de Google que era una copia parcial del proyecto  `protobuf` , que es una herramienta que codifica datos estructurados para la transmisión de red.
 
-To demonstrate this functionality, you need a typical SVN repository that you have write access to. If you want to copy these examples, you’ll have to make a writeable copy of my test repository. In order to do that easily, you can use a tool called `svnsync` that comes with more recent versions of Subversion — it should be distributed with at least 1.4. For these tests, I created a new Subversion repository on Google code that was a partial copy of the `protobuf` project, which is a tool that encodes structured data for network transmission. 
-
-To follow along, you first need to create a new local Subversion repository:
+Para seguir adelante, primero se debe crear un nuevo repositorio local de Subversion:
 
 	$ mkdir /tmp/test-svn
 	$ svnadmin create /tmp/test-svn
