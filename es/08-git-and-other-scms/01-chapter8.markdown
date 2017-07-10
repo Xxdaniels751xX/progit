@@ -626,7 +626,7 @@ That’s it. If you run this script, you’ll get content that looks something l
 	new version one
 	(...)
 
-To run the importer, pipe this output through `git fast-import` while in the Git directory you want to import into. You can create a new directory and then run `git init` in it for a starting point, and then run your script:
+Para ejecutar el importador, canaliza esta salida a través de `git fast-import` mientras esté en el directorio Git al que desee importar. Puede crear un nuevo directorio y luego ejecutar `git init` en él para un punto de partida, y luego ejecutar su script:
 
 	$ git init
 	Initialized empty Git repository in /opt/import_to/.git/
@@ -655,7 +655,7 @@ To run the importer, pipe this output through `git fast-import` while in the Git
 	pack_report: pack_mapped              =       1356 /       1356
 	---------------------------------------------------------------------
 
-As you can see, when it completes successfully, it gives you a bunch of statistics about what it accomplished. In this case, you imported 18 objects total for 5 commits into 1 branch. Now, you can run `git log` to see your new history:
+Como puede ver, cuando se completa con éxito, le da un montón de estadísticas sobre lo que logró. En este caso, importó 18 objetos en total para 5 confirmaciones en 1 rama. Ahora, puede ejecutar `git log` para ver su nuevo historial:
 
 	$ git log -2
 	commit 10bfe7d22ce15ee25b60a824c8982157ca593d41
@@ -670,7 +670,7 @@ As you can see, when it completes successfully, it gives you a bunch of statisti
 
 	    imported from back_2009_02_03
 
-There you go — a nice, clean Git repository. It’s important to note that nothing is checked out — you don’t have any files in your working directory at first. To get them, you must reset your branch to where `master` is now:
+Ahí tienes, un repositorio Git limpio y bonito. Es importante tener en cuenta que no hay nada extraído - usted no tiene ningún archivo en su directorio de trabajo en un primer momento. Para obtenerlas, debe restablecer su sucursal a donde `master` es ahora:
 
 	$ ls
 	$ git reset --hard master
@@ -678,8 +678,8 @@ There you go — a nice, clean Git repository. It’s important to note that not
 	$ ls
 	file.rb  lib
 
-You can do a lot more with the `fast-import` tool — handle different modes, binary data, multiple branches and merging, tags, progress indicators, and more. A number of examples of more complex scenarios are available in the `contrib/fast-import` directory of the Git source code; one of the better ones is the `git-p4` script I just covered.
+Puede hacer mucho más con la herramienta `fast-import` - manejar diferentes modos, datos binarios, múltiples ramas y combinaciones, etiquetas, indicadores de progreso y más. Hay varios ejemplos de escenarios más complejos disponibles en el directorio `contrib / fast-import` del código fuente de Git; Uno de los mejores es el guión `git-p4` que acabo de cubrir.
 
-## Summary ##
+## Recapitulando ##
 
-You should feel comfortable using Git with Subversion or importing nearly any existing repository into a new Git one without losing data. The next chapter will cover the raw internals of Git so you can craft every single byte, if need be.
+Debería sentirse cómodo usando Git con Subversion o importando casi cualquier repositorio existente en un nuevo Git uno sin perder datos. El siguiente capítulo cubrirá los elementos internos de Git para que pueda crear cada byte, si es necesario.
