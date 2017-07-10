@@ -109,15 +109,15 @@ Tiene dos servidores remotos: uno llamado `gitserver` con una rama` master`; Y o
 
 Observe cómo en el ejemplo de referencias remotas importadas de `git svn`, las etiquetas se agregan como ramas remotas, no como etiquetas Git reales. Su importación de Subversion parece que tiene un remoto llamado etiquetas con ramas bajo él.
 
-### Committing Back to Subversion ###
+### Volviendo a Comitear en Subversion ###
 
-Now that you have a working repository, you can do some work on the project and push your commits back upstream, using Git effectively as a SVN client. If you edit one of the files and commit it, you have a commit that exists in Git locally that doesn’t exist on the Subversion server:
+Ahora que tiene un repositorio de trabajo, puede hacer algún trabajo en el proyecto y empujar sus confirmaciones de nuevo en sentido ascendente, utilizando Git eficazmente como un cliente SVN. Si edita uno de los archivos y lo confirma, tiene un commit que existe en Git localmente que no existe en el servidor de Subversion:
 
 	$ git commit -am 'Adding git-svn instructions to the README'
 	[master 97031e5] Adding git-svn instructions to the README
 	 1 files changed, 1 insertions(+), 1 deletions(-)
 
-Next, you need to push your change upstream. Notice how this changes the way you work with Subversion — you can do several commits offline and then push them all at once to the Subversion server. To push to a Subversion server, you run the `git svn dcommit` command:
+A continuación, debe empujar su cambio hacia arriba. Observe cómo esto cambia la forma en que trabaja con Subversion: puede realizar varios commit offline y luego empujarlos todos de una vez al servidor de Subversion. Para enviar un servidor Subversion, ejecute el comando `git svn dcommit`:
 
 	$ git svn dcommit
 	Committing to file:///tmp/test-svn/trunk ...
@@ -128,7 +128,7 @@ Next, you need to push your change upstream. Notice how this changes the way you
 	No changes between current HEAD and refs/remotes/trunk
 	Resetting to the latest refs/remotes/trunk
 
-This takes all the commits you’ve made on top of the Subversion server code, does a Subversion commit for each, and then rewrites your local Git commit to include a unique identifier. This is important because it means that all the SHA-1 checksums for your commits change. Partly for this reason, working with Git-based remote versions of your projects concurrently with a Subversion server isn’t a good idea. If you look at the last commit, you can see the new `git-svn-id` that was added:
+Esto toma todos los commits que has hecho en la parte superior del código del servidor de Subversion, hace un commit de Subversion para cada uno, y luego vuelve a escribir tu commit Git local para incluir un identificador único. Esto es importante porque significa que todas las sumas de comprobación SHA-1 para su confirmación cambian. En parte por esta razón, trabajar con versiones remotas basadas en Git de sus proyectos simultáneamente con un servidor Subversion no es una buena idea. Si observa el último commit, puede ver el nuevo `git-svn-id` que se agregó:
 
 	$ git log -1
 	commit 938b1a547c2cc92033b74d32030e86468294a5c8
@@ -139,11 +139,11 @@ This takes all the commits you’ve made on top of the Subversion server code, d
 
 	    git-svn-id: file:///tmp/test-svn/trunk@79 4c93b258-373f-11de-be05-5f7a86268029
 
-Notice that the SHA checksum that originally started with `97031e5` when you committed now begins with `938b1a5`. If you want to push to both a Git server and a Subversion server, you have to push (`dcommit`) to the Subversion server first, because that action changes your commit data.
+Observe que la suma de comprobación SHA que comenzó originalmente con `97031e5` cuando se comprometió ahora comienza con` 938b1a5`. Si desea enviar tanto a un servidor Git como a un servidor Subversion, primero tiene que empujar (`dcommit`) al servidor de Subversion, porque esa acción cambia los datos de confirmación.
 
-### Pulling in New Changes ###
+### Sacando nuevos cambios ###
 
-If you’re working with other developers, then at some point one of you will push, and then the other one will try to push a change that conflicts. That change will be rejected until you merge in their work. In `git svn`, it looks like this:
+Si está trabajando con otros desarrolladores, en algún momento uno de ustedes empujará, y luego el otro intentará empujar un cambio que entre en conflicto. Ese cambio será rechazado hasta que se fusionen en su trabajo. En `git svn`, se ve así:
 
 	$ git svn dcommit
 	Committing to file:///tmp/test-svn/trunk ...
@@ -151,7 +151,7 @@ If you’re working with other developers, then at some point one of you will pu
 	out-of-date: resource out of date; try updating at /Users/schacon/libexec/git-\
 	core/git-svn line 482
 
-To resolve this situation, you can run `git svn rebase`, which pulls down any changes on the server that you don’t have yet and rebases any work you have on top of what is on the server:
+Para resolver esta situación, puede ejecutar `git svn rebase`, que anula todos los cambios en el servidor que todavía no tiene y rebases cualquier trabajo que tenga encima de lo que está en el servidor:
 
 	$ git svn rebase
 	       M      README.txt
@@ -159,7 +159,7 @@ To resolve this situation, you can run `git svn rebase`, which pulls down any ch
 	First, rewinding head to replay your work on top of it...
 	Applying: first user change
 
-Now, all your work is on top of what is on the Subversion server, so you can successfully `dcommit`:
+Ahora, todo su trabajo está encima de lo que está en el servidor de Subversion, por lo que puede `dcommit`:
 
 	$ git svn dcommit
 	Committing to file:///tmp/test-svn/trunk ...
@@ -170,7 +170,7 @@ Now, all your work is on top of what is on the Subversion server, so you can suc
 	No changes between current HEAD and refs/remotes/trunk
 	Resetting to the latest refs/remotes/trunk
 
-It’s important to remember that unlike Git, which requires you to merge upstream work you don’t yet have locally before you can push, `git svn` makes you do that only if the changes conflict. If someone else pushes a change to one file and then you push a change to another file, your `dcommit` will work fine:
+Es importante recordar que, a diferencia de Git, que requiere que se fusione el trabajo de upstream que aún no tienen localmente antes de poder empujar, `git svn` hace que lo haga sólo si los cambios de conflicto. Si alguien empuja un cambio a un archivo y luego presiona un cambio en otro archivo, su `dcommit` funcionará bien:
 
 	$ git svn dcommit
 	Committing to file:///tmp/test-svn/trunk ...
@@ -187,9 +187,9 @@ It’s important to remember that unlike Git, which requires you to merge upstre
 	First, rewinding head to replay your work on top of it...
 	Nothing to do.
 
-This is important to remember, because the outcome is a project state that didn’t exist on either of your computers when you pushed. If the changes are incompatible but don’t conflict, you may get issues that are difficult to diagnose. This is different than using a Git server — in Git, you can fully test the state on your client system before publishing it, whereas in SVN, you can’t ever be certain that the states immediately before commit and after commit are identical.
+Esto es importante recordar, porque el resultado es un estado del proyecto que no existía en ninguno de sus equipos cuando lo empujó. Si los cambios son incompatibles pero no entran en conflicto, es posible que obtenga problemas difíciles de diagnosticar. Esto es diferente a usar un servidor Git. En Git, puede probar completamente el estado en su sistema cliente antes de publicarlo, mientras que en SVN, no puede estar seguro de que los estados inmediatamente antes de commit y después de commit son idénticos.
 
-You should also run this command to pull in changes from the Subversion server, even if you’re not ready to commit yourself. You can run `git svn fetch` to grab the new data, but `git svn rebase` does the fetch and then updates your local commits.
+También debe ejecutar este comando para extraer los cambios del servidor de Subversion, incluso si no está listo para comprometerse. Puede ejecutar `git svn fetch` para capturar los nuevos datos, pero` git svn rebase` hace la búsqueda y luego actualiza sus commits locales.
 
 	$ git svn rebase
 	       M      generate_descriptor_proto.sh
@@ -197,7 +197,7 @@ You should also run this command to pull in changes from the Subversion server, 
 	First, rewinding head to replay your work on top of it...
 	Fast-forwarded master to refs/remotes/trunk.
 
-Running `git svn rebase` every once in a while makes sure your code is always up to date. You need to be sure your working directory is clean when you run this, though. If you have local changes, you must either stash your work or temporarily commit it before running `git svn rebase` — otherwise, the command will stop if it sees that the rebase will result in a merge conflict.
+Ejecutar `git svn rebase` de vez en cuando se asegura de que su código esté siempre actualizado. Sin embargo, debe asegurarse de que su directorio de trabajo esté limpio al ejecutarlo. Si tiene cambios locales, debe almacenar su trabajo o confirmarlo temporalmente antes de ejecutar `git svn rebase`; de lo contrario, el comando se detendrá si ve que el rebase resultará en un conflicto de combinación.
 
 ### Git Branching Issues ###
 
