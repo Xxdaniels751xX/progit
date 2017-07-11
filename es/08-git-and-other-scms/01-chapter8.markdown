@@ -259,13 +259,13 @@ Ahora, si desea fusionar su rama `opera` en` trunk` (su rama `master`), puede ha
 
 Recuerde que aunque está usando `git merge` para hacer esta operación, y la fusión probablemente será mucho más fácil de lo que sería en Subversion (porque Git detectará automáticamente la base de combinación apropiada para usted), esto no es normal Git merge commit. Tienes que volver a enviar estos datos a un servidor de Subversion que no puede manejar un commit que rastree más de un padre; Así que, después de empujarlo hacia arriba, se verá como un solo commit que se aplastó en todo el trabajo de otra rama en un solo commit. Después de combinar una rama en otra, no puede volver fácilmente y seguir trabajando en esa rama, como normalmente lo hace en Git. El comando `dcommit` que ejecuta borra cualquier información que indique en qué rama se fusionó, de modo que los cálculos posteriores de la base de combinación se equivocan - el dcommit hace que su resultado` git merge` parezca ejecutado `git merge --squash`. Desafortunadamente, no hay una buena manera de evitar esta situación - Subversion no puede almacenar esta información, por lo que siempre estará lisiado por sus limitaciones mientras lo está utilizando como su servidor. Para evitar problemas, debe eliminar la rama local (en este caso, `opera`) después de fusionarla en el tronco.
 
-### Subversion Commands ###
+### Comandos de Subversion ###
 
-The `git svn` toolset provides a number of commands to help ease the transition to Git by providing some functionality that’s similar to what you had in Subversion. Here are a few commands that give you what Subversion used to.
+El conjunto de herramientas `git svn` proporciona una serie de comandos para facilitar la transición a Git proporcionando una funcionalidad similar a la que tenía en Subversion. Aquí hay algunos comandos que le dan a lo que Subversion solía hacerlo.
 
-#### SVN Style History ####
+#### Historia del estilo de SVN ####
 
-If you’re used to Subversion and want to see your history in SVN output style, you can run `git svn log` to view your commit history in SVN formatting:
+Si estás acostumbrado a Subversion y quieres ver tu historia en el estilo de salida de SVN, puedes ejecutar `git svn log` para ver tu historial de confirmación en formato SVN:
 
 	$ git svn log
 	------------------------------------------------------------------------
@@ -283,7 +283,7 @@ If you’re used to Subversion and want to see your history in SVN output style,
 	
 	updated the changelog
 
-You should know two important things about `git svn log`. First, it works offline, unlike the real `svn log` command, which asks the Subversion server for the data. Second, it only shows you commits that have been committed up to the Subversion server. Local Git commits that you haven’t dcommited don’t show up; neither do commits that people have made to the Subversion server in the meantime. It’s more like the last known state of the commits on the Subversion server.
+Debes saber dos cosas importantes acerca de `git svn log`. En primer lugar, funciona fuera de línea, a diferencia del comando real `svn log`, que solicita al servidor Subversion los datos. En segundo lugar, sólo muestra los compromisos que se han comprometido hasta el servidor de Subversion. Local Git se compromete a que usted no ha dcommited no aparecen; Ninguno de los compromisos que las personas han hecho en el servidor de Subversion en el ínterin. Es más como el último estado conocido de los commits en el servidor de Subversion.
 
 #### SVN Annotation ####
 
